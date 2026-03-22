@@ -166,13 +166,13 @@ allowfullscreen>
 <p>Try to guess the number!</p>
 <a href="https://replit.com" target="_blank">▶ Play</a>
 </div>
+    <div>
+        <a href=".kindahomelesshtmlworkinprogress.html">broke website🥀</a>
 </div>
 </section>
 </div>
 <footer>
 <p>Fan Website for JIJTHETUBER</p>
 </footer>
-     <div>
-        <a href=".kindahomelesshtmlworkinprogress.html">broke website🥀</a>
 </body>
 </html>
