@@ -23,10 +23,6 @@ header h1{
     font-size:40px;
 }
 
-header p{
-    font-size:18px;
-}
-
 .container{
     max-width:1000px;
     margin:auto;
@@ -38,12 +34,6 @@ header p{
     padding:20px;
     border-radius:10px;
     text-align:center;
-}
-
-.channel-box a{
-    color:#ff4444;
-    font-weight:bold;
-    text-decoration:none;
 }
 
 .subscribe{
@@ -76,75 +66,8 @@ footer{
     background:#000;
     color:#aaa;
 }
-</style>
-</head>
 
-<body>
-
-<header>
-<h1>JJTHEANIMATOR</h1>
-<p>Gaming • Funny Videos • Content Creation</p>
-</header>
-
-<div class="container">
-
-<div class="channel-box">
-<h2>Visit the Channel</h2>
-<p>
-Check out the official YouTube channel:
-<br><br>
-<a href="https://www.youtube.com/@JIJTHETUBER" target="_blank">
-youtube.com/@JIJTHETUBER
-</a>
-</p>
-
-<a class="subscribe" href="https://www.youtube.com/@JIJTHETUBER?sub_confirmation=1" target="_blank">
-Subscribe on YouTube
-</a>
-</div>
-
-<div class="video">
-<h2>Featured Video</h2>
-
-<iframe 
-    width="100%" 
-    height="500"
-    src="https://www.youtube.com/embed/YsYrBoKo1wE"
-    title="YouTube video"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen>
-</iframe>
-
-</div>
-</div>
-
-<footer>
-<p>Fan Website for JIJTHETUBER</p>
-</footer>
-
-</body>
-</html>
-<section class="games">
-    <h2>🎮 Games I Coded While Bored</h2>
-    <p>Some random Python games I made when I had nothing to do 😄</p>
-  <div class="game-list">
-        <div class="game-card">
-            <h3>Snake Game 🐍</h3>
-            <p>A simple snake game made in Python.</p>
-            <iframe src="snake.html" width="620" height="450"></iframe>
-            <a href="snake.html" download>⬇ Download</a>
-        </div>
-   <div class="game-card">
-            <h3>Number Guess 🔢</h3>
-            <p>Try to guess the number!</p>
-            <a href="https://replit.com" target="_blank">▶ Play</a>
-            <a href="guess.py" download>⬇ Download</a>
-        </div>
-  </div>
-</section>
-
-<style>
+/* 🎮 GAMES SECTION */
 .games{
     margin-top:40px;
     text-align:center;
@@ -161,7 +84,13 @@ Subscribe on YouTube
     background:#1e1e1e;
     padding:20px;
     border-radius:10px;
-    width:250px;
+    width:300px;
+}
+
+.game-card iframe{
+    width:100%;
+    height:300px;
+    margin-top:10px;
 }
 
 .game-card a{
@@ -174,3 +103,67 @@ Subscribe on YouTube
     border-radius:5px;
 }
 </style>
+</head>
+
+<body>
+
+<header>
+<h1>JJTHEANIMATOR</h1>
+<p>Gaming • Funny Videos • Content Creation</p>
+</header>
+
+<div class="container">
+
+<div class="channel-box">
+<h2>Visit the Channel</h2>
+<a href="https://www.youtube.com/@JIJTHETUBER" target="_blank">
+youtube.com/@JIJTHETUBER
+</a>
+
+<br><br>
+
+<a class="subscribe" href="https://www.youtube.com/@JIJTHETUBER?sub_confirmation=1" target="_blank">
+Subscribe on YouTube
+</a>
+</div>
+
+<div class="video">
+<h2>Featured Video</h2>
+
+<iframe 
+src="https://www.youtube.com/embed/YsYrBoKo1wE"
+allowfullscreen>
+</iframe>
+
+</div>
+
+<!-- 🎮 GAMES SECTION (NOW INSIDE BODY ✅) -->
+<section class="games">
+<h2>🎮 Games I Coded While Bored</h2>
+
+<div class="game-list">
+
+<div class="game-card">
+<h3>Snake Game 🐍</h3>
+<p>Play it right here!</p>
+<iframe src="snake.html"></iframe>
+<a href="snake.html" download>⬇ Download</a>
+</div>
+
+<div class="game-card">
+<h3>Number Guess 🔢</h3>
+<p>Try to guess the number!</p>
+<a href="https://replit.com" target="_blank">▶ Play</a>
+</div>
+
+</div>
+</section>
+
+</div>
+
+<footer>
+<p>Fan Website for JIJTHETUBER</p>
+</footer>
+
+</body>
+</html>
