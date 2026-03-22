@@ -120,8 +120,6 @@ function closeGame() {
     document.getElementById("gameContainer").style.display = "none";
 }
 </script>
-    <div>
-        <a href=".kindahomelesshtmlworkinprogress.html">broke website🥀</a>
 <body>
 <header>
 <h1>JJTHEANIMATOR</h1>
@@ -174,5 +172,7 @@ allowfullscreen>
 <footer>
 <p>Fan Website for JIJTHETUBER</p>
 </footer>
+     <div>
+        <a href=".kindahomelesshtmlworkinprogress.html">broke website🥀</a>
 </body>
 </html>
