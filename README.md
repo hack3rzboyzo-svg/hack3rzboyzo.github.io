@@ -106,10 +106,17 @@ Subscribe on YouTube
 <div class="video">
 <h2>Featured Video</h2>
 
-<iframe src="https://www.youtube.com/watch?v=_iRWIIpSRVE"></iframe>
+<iframe 
+    width="100%" 
+    height="500"
+    src="https://www.youtube.com/embed/YsYrBoKo1wE"
+    title="YouTube video"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
 
 </div>
-
 </div>
 
 <footer>
