@@ -125,8 +125,8 @@ Subscribe on YouTube
         <div class="game-card">
             <h3>Snake Game 🐍</h3>
             <p>A simple snake game made in Python.</p>
-            <a href="https://replit.com/@hack3rzboyzo/Physics-Simulator">▶ Play</a>
-            <a href="snake.py" download>⬇ Download</a>
+            <iframe src="snake.html" width="620" height="450"></iframe>
+            <a href="snake.html" download>⬇ Download</a>
         </div>
    <div class="game-card">
             <h3>Number Guess 🔢</h3>
