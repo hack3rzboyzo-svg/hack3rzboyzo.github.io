@@ -146,7 +146,7 @@ allowfullscreen>
 <div class="game-card">
 <h3>Snake Game 🐍</h3>
 <p>Play it right here!</p>
-<iframe src="https://example.com"></iframe>
+<iframe src="snake.html"></iframe>
 <a href="snake.html" download>⬇ Download</a>
 </div>
 
