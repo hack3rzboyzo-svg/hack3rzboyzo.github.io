@@ -106,7 +106,7 @@ Subscribe on YouTube
 <div class="video">
 <h2>Featured Video</h2>
 
-<iframe src="https://www.youtube.com/embed?listType=user_uploads&list=JIJTHETUBER"></iframe>
+<iframe src="https://www.youtube.com/watch?v=_iRWIIpSRVE"></iframe>
 
 </div>
 
