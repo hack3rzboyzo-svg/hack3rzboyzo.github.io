@@ -22,7 +22,7 @@ header h1{
 .container{
     max-width:1000px;
     margin:auto;
-    padding:20px;
+    padding:50px;
 }
 .channel-box{
     background:#1e1e1e;
@@ -120,6 +120,8 @@ function closeGame() {
     document.getElementById("gameContainer").style.display = "none";
 }
 </script>
+    <div>
+        <a href=".kindahomelesshtmlworkinprogress.html">broke website🥀</a>
 <body>
 <header>
 <h1>JJTHEANIMATOR</h1>
