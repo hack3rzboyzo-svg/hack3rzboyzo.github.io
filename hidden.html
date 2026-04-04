@@ -13,6 +13,7 @@
     --gold: #ffd700;
     --red: #ff2244;
     --text: #e0eaff;
+    --green: #0c5b29;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -69,6 +70,19 @@
     box-shadow: 0 0 30px rgba(255,215,0,0.4);
     filter: saturate(-500%);
   }
+  .badge-founder{
+    color: var(--green);
+    border-color: rgb(4, 54, 22);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    background: rgb(125,211,252,0.15);
+    color:rgb(28, 157, 26);
+    border: 1px solid rgb(28, 157, 26);
+    white-space: nowrap;
+  }
 
   /* ── MEMBERS SECTION ── */
   .members-section {
@@ -104,11 +118,13 @@
   }
   .members-list li {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 12px;
     font-size: 0.85rem;
     letter-spacing: 2px;
     color: var(--text);
+    width: 100%;
   }
   .members-list li .badge {
     font-size: 0.6rem;
@@ -491,11 +507,17 @@
     <p class="members-subtitle">Lunar Sooners · Roll Call</p>
     <ul class="members-list">
       <li>👑 Mikail <span class="badge king">King</span></li>
+      <li>🌙 Qusai <span class="badge-founder">Founder</span></li>
       <li>🌙 Mustafa <span class="badge">King Guard</span></li>
-      <li>🌙 [Name] <span class="badge">Member</span></li>
-      <li>🌙 [Name] <span class="badge">Member</span></li>
-      <li>🌙 [Name] <span class="badge">Member</span></li>
-      <li>🌙 [Name] <span class="badge">Member</span></li>
+      <li>🌙 Jibrail <span class="badge">Member</span></li>
+      <li>🌙 Arafat <span class="badge">Member</span></li>
+      <li>🌙 Amir <span class="badge">Member</span></li>
+      <li>🌙 Azrail <span class="badge">Member</span></li>
+      <li>🌙 Abdurahman <span class="badge">Member</span></li>
+      <li>🌙 Ghaddi <span class="badge">Member</span></li>
+      <li>🌙 Isra <span class="badge">Member</span></li>
+      <li>🌙 Zubaida <span class="badge">Member</span></li>
+      <li>🌙 Sahar <span class="badge">Member</span></li>
     </ul>
   </div>
 
@@ -519,7 +541,36 @@
         <p class="meet-name">The Squad</p>
         <p class="meet-role">All of us, together</p>
       </div>
-
+      <div class="meet-card">
+        <img src="./Pics/26352.jpg" alt="The Squad">
+        <p class="meet-name">The Girls</p>
+        <p class="meet-role">Lunar Juniors</p>
+      </div>
+      <div class="meet-card">
+        <img src="./Pics/26370.jpg" alt="The Squad">
+        <p class="meet-name">The Squad</p>
+        <p class="meet-role">All of us, together</p>
+      </div>
+      <div class="meet-card">
+        <img src="./Pics/25947.jpg" alt="The Squad">
+        <p class="meet-name">The Boys</p>
+        <p class="meet-role">Male Gooners</p>
+      </div>
+      <div class="meet-card">
+        <img src="./Pics/Photo on 03-04-2026 at 3.44 PM.jpg" alt="The Squad">
+        <p class="meet-name">Abdu</p>
+        <p class="meet-role">OG(Original Gooner)</p>
+      </div>
+      <div class="meet-card">
+        <img src="./Pics/Photo on 03-04-2026 at 3.45 PM.jpg" alt="The Squad">
+        <p class="meet-name">A+J</p>
+        <p class="meet-role">The Screamer</p>
+      </div>
+      <div class="meet-card">
+        <img src="./Pics/Photo on 03-04-2026 at 3.42 PM.jpg" alt="The Squad">
+        <p class="meet-name">Double J</p>
+        <p class="meet-role">Older Brother</p>
+      </div>
       <div class="meet-empty">
         <span>＋</span>
         <p>Coming Soon</p>
@@ -597,6 +648,8 @@
       setTimeout(() => t.classList.remove('show'), 2500);
     }
 
+    const CLEAR_PASSWORD = 'https://youtube.com/@jijthetuber';
+
     function renderLog() {
       const log = document.getElementById('suggestLog');
       const empty = document.getElementById('emptyMsg');
@@ -649,6 +702,15 @@
     }
 
     function clearAll() {
+      const password = prompt('Password required to clear the log:');
+      if (password === null) {
+        showToast('Clear cancelled.');
+        return;
+      }
+      if (password !== CLEAR_PASSWORD) {
+        showToast('Wrong password. Log not cleared.');
+        return;
+      }
       if (!confirm('Clear the local log? (suggestions.txt on disk is untouched)')) return;
       localStorage.removeItem(STORAGE_KEY);
       renderLog();
