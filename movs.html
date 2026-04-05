@@ -15,6 +15,168 @@
     --text: #e0eaff;
     --green: #0c5b29;
   }
+  <!--suggestions-->
+  .suggest-section {
+    margin: 80px auto 0;
+    max-width: 640px;
+    animation: fadeDown 0.8s 0.7s ease both;
+  }
+  .suggest-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--accent);
+    letter-spacing: 4px;
+    margin-bottom: 6px;
+  }
+  .suggest-subtitle {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    color: #7dd3fc;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .suggest-box {
+    background: rgba(125,211,252,0.04);
+    border: 1px solid rgba(125,211,252,0.2);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .suggest-box textarea {
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(125,211,252,0.25);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    padding: 14px;
+    resize: vertical;
+    min-height: 100px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .suggest-box textarea:focus { border-color: var(--accent); }
+  .suggest-box textarea::placeholder { color: rgba(125,211,252,0.3); }
+  .suggest-btn-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .btn-submit {
+    background: rgba(125,211,252,0.12);
+    border: 1px solid rgba(125,211,252,0.4);
+    color: var(--accent);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .btn-submit:hover { background: rgba(125,211,252,0.22); box-shadow: 0 0 16px rgba(125,211,252,0.2); }
+  .btn-download {
+    background: rgba(255,215,0,0.08);
+    border: 1px solid rgba(255,215,0,0.35);
+    color: var(--gold);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .btn-download:hover { background: rgba(255,215,0,0.16); box-shadow: 0 0 16px rgba(255,215,0,0.15); }
+  .btn-clear {
+    background: rgba(255,34,68,0.07);
+    border: 1px solid rgba(255,34,68,0.3);
+    color: #f87171;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-clear:hover { background: rgba(255,34,68,0.15); }
+  .suggest-log {
+    margin-top: 20px;
+    text-align: left;
+    max-height: 260px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .suggest-entry {
+    background: rgba(125,211,252,0.04);
+    border-left: 3px solid rgba(125,211,252,0.35);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    color: #cbd5e1;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .suggest-entry .ts {
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    color: rgba(125,211,252,0.4);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+  .suggest-empty-msg {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: rgba(125,211,252,0.2);
+    text-transform: uppercase;
+    padding: 16px 0;
+  }
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(125,211,252,0.15);
+    border: 1px solid rgba(125,211,252,0.4);
+    color: var(--accent);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    border-radius: 30px;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    z-index: 999;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 80px;
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    color: rgba(192,132,252,0.3);
+    text-transform: uppercase;
+    animation: fadeDown 0.8s 0.6s ease both;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -177,6 +339,16 @@
         <a class="video-link" href="./Movs/IMG_1443.MOV" download>Download</a>
       </div>
 
+      <div class="meet-card">
+        <video controls>
+          <source src="./Movs/Fireworks Gone Wrong.mov" type="video/quicktime">
+          Your browser does not support MOV playback.
+        </video>
+        <p class="meet-name">Fireworks Gone Wrong</p>
+        <p class="meet-role">Cursed Fireworks</p>
+        <a class="video-link" href="./Movs/Fireworks Gone Wrong.mov" download>Download</a>
+      </div>
+
     </div>
   </div>
 
@@ -184,7 +356,61 @@
     <a href="./hidden.html" style="display: inline-block; padding: 12px 24px; background: rgba(125,211,252,0.12); border: 1px solid rgba(125,211,252,0.4); color: var(--accent); text-decoration: none; border-radius: 8px; font-size: 0.85rem; letter-spacing: 2px; transition: background 0.2s;">👑 Members Area</a>
   </div>
 
+  <div class="suggest-section">
+    <h2 class="suggest-title">Have Videos?</h2>
+    <p class="suggest-subtitle">Send them to me</p>
+    <div class="suggest-box">
+      <textarea id="suggest-input" placeholder="if u have any videos send it to me..."></textarea>
+      <div class="suggest-btn-row">
+        <button class="btn-submit" onclick="submitSuggestion()">Submit</button>
+        <button class="btn-clear" onclick="clearInput()">Clear</button>
+      </div>
+      <div class="suggest-log" id="suggest-log">
+        <div class="suggest-empty-msg">NO SUBMISSIONS YET</div>
+      </div>
+    </div>
+  </div>
+
   <footer>☽ Lunar Gooners · Eyes Open · Always ☾</footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const suggestInput = document.getElementById('suggest-input');
+    const suggestLog = document.getElementById('suggest-log');
+    const toast = document.getElementById('toast');
+
+    function submitSuggestion() {
+      const text = suggestInput.value.trim();
+      if (!text) {
+        showToast('Please enter something');
+        return;
+      }
+      const now = new Date();
+      const timestamp = now.toLocaleString();
+      const entry = document.createElement('div');
+      entry.className = 'suggest-entry';
+      entry.innerHTML = `<div class="ts">${timestamp}</div>${text}`;
+      if (suggestLog.querySelector('.suggest-empty-msg')) {
+        suggestLog.innerHTML = '';
+      }
+      suggestLog.insertBefore(entry, suggestLog.firstChild);
+      suggestInput.value = '';
+      showToast('Submission received!');
+    }
+    function clearInput() {
+      suggestInput.value = '';
+      suggestInput.focus();
+    }
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+    suggestInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) submitSuggestion();
+    });
+  </script>
 
 </body>
 </html>
