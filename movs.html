@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Exclusive Gooner content</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
@@ -161,6 +162,76 @@
     z-index: 999;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .share-box {
+    margin-top: 16px;
+    display: grid;
+    gap: 12px;
+    text-align: left;
+  }
+  .share-label {
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #7dd3fc;
+  }
+  .share-select,
+  .share-file-input {
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(125,211,252,0.25);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    padding: 12px 14px;
+    outline: none;
+  }
+  .share-file-input {
+    cursor: pointer;
+  }
+  .share-filename {
+    font-size: 0.75rem;
+    color: rgba(125,211,252,0.65);
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(125,211,252,0.15);
+    border-radius: 8px;
+    overflow-wrap: anywhere;
+  }
+  .share-note {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    color: rgba(125,211,252,0.6);
+    margin-top: 6px;
+  }
+
+  @media (max-width: 760px) {
+    body {
+      padding: 20px 14px;
+    }
+    .meet-grid {
+      gap: 18px;
+    }
+    .meet-card {
+      width: 100%;
+      max-width: 100%;
+    }
+    .suggest-box {
+      padding: 20px;
+    }
+    .suggest-btn-row {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn-submit,
+    .btn-download,
+    .btn-clear {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 0.85rem;
+    }
+  }
 
   /* ── FOOTER ── */
   footer {
@@ -363,10 +434,31 @@
       <textarea id="suggest-input" placeholder="if u have any videos send it to me..."></textarea>
       <div class="suggest-btn-row">
         <button class="btn-submit" onclick="submitSuggestion()">Submit</button>
-        <button class="btn-clear" onclick="clearInput()">Clear</button>
+        <button class="btn-download" onclick="clearInput()">Clear input</button>
+        <button class="btn-clear" onclick="clearLog()">Clear log</button>
       </div>
       <div class="suggest-log" id="suggest-log">
         <div class="suggest-empty-msg">NO SUBMISSIONS YET</div>
+      </div>
+
+      <div class="share-section">
+        <h2 class="suggest-title">Share videos</h2>
+        <p class="suggest-subtitle">Upload a clip to OneDrive or Google Drive</p>
+        <div class="share-box">
+          <label class="share-label" for="video-share-file">Select clip from device</label>
+          <input id="video-share-file" class="share-file-input" type="file" accept="video/*">
+          <div id="share-file-name" class="share-filename">No file selected</div>
+          <label class="share-label" for="drive-service">Select service</label>
+          <select id="drive-service" class="share-select">
+            <option value="onedrive">OneDrive</option>
+            <option value="googledrive">Google Drive</option>
+          </select>
+          <div class="suggest-btn-row">
+            <button class="btn-download" onclick="openDriveUpload()">Open upload page</button>
+            <button class="btn-submit" onclick="shareVideo()">Log share request</button>
+          </div>
+          <p class="share-note">Your browser will open the selected drive page. Use it to upload the file from your device, then share the link back if needed.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -379,15 +471,11 @@
     const suggestInput = document.getElementById('suggest-input');
     const suggestLog = document.getElementById('suggest-log');
     const toast = document.getElementById('toast');
+    const shareFileInput = document.getElementById('video-share-file');
+    const shareFileName = document.getElementById('share-file-name');
+    const localStorageKey = 'movs_suggestions';
 
-    function submitSuggestion() {
-      const text = suggestInput.value.trim();
-      if (!text) {
-        showToast('Please enter something');
-        return;
-      }
-      const now = new Date();
-      const timestamp = now.toLocaleString();
+    function addLogEntry(timestamp, text) {
       const entry = document.createElement('div');
       entry.className = 'suggest-entry';
       entry.innerHTML = `<div class="ts">${timestamp}</div>${text}`;
@@ -395,21 +483,159 @@
         suggestLog.innerHTML = '';
       }
       suggestLog.insertBefore(entry, suggestLog.firstChild);
-      suggestInput.value = '';
-      showToast('Submission received!');
     }
+
+    async function loadSavedSuggestions() {
+      try {
+        const response = await fetch('/suggestions');
+        const result = await response.json();
+        if (response.ok && result.ok && Array.isArray(result.entries)) {
+          if (result.entries.length > 0) {
+            suggestLog.innerHTML = '';
+            result.entries.forEach(({ timestamp, text }) => addLogEntry(timestamp, text));
+            return;
+          }
+        }
+      } catch (error) {
+        console.warn('Could not load suggestions from server, using local cache', error);
+      }
+
+      const saved = localStorage.getItem(localStorageKey);
+      if (!saved) return;
+      try {
+        const suggestions = JSON.parse(saved);
+        if (Array.isArray(suggestions) && suggestions.length > 0) {
+          suggestLog.innerHTML = '';
+          suggestions.forEach(({ timestamp, text }) => addLogEntry(timestamp, text));
+        }
+      } catch (error) {
+        console.error('Could not load saved suggestions', error);
+      }
+    }
+
+    function saveSuggestionLocally(timestamp, text) {
+      const saved = localStorage.getItem(localStorageKey);
+      const suggestions = saved ? JSON.parse(saved) : [];
+      suggestions.unshift({ timestamp, text });
+      localStorage.setItem(localStorageKey, JSON.stringify(suggestions.slice(0, 50)));
+    }
+
+    async function submitSuggestion() {
+      const text = suggestInput.value.trim();
+      if (!text) {
+        showToast('Please enter something');
+        return;
+      }
+      const now = new Date();
+      const timestamp = now.toLocaleString();
+      try {
+        const response = await fetch('/suggest', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text })
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || 'Server error');
+        }
+        addLogEntry(timestamp, text);
+        saveSuggestionLocally(timestamp, text);
+        suggestInput.value = '';
+        showToast('Submission saved');
+      } catch (error) {
+        console.error(error);
+        addLogEntry(timestamp, text);
+        saveSuggestionLocally(timestamp, text);
+        suggestInput.value = '';
+        showToast('Saved locally');
+      }
+    }
+
+    async function clearLog() {
+      const password = prompt('Enter password to clear the log:');
+      if (password === null) {
+        return;
+      }
+      if (password.trim() !== 'https://youtube.com/@jijthetuber') {
+        showToast('Wrong password');
+        return;
+      }
+
+      suggestLog.innerHTML = '<div class="suggest-empty-msg">NO SUBMISSIONS YET</div>';
+      localStorage.removeItem(localStorageKey);
+      try {
+        const response = await fetch('/clear-suggestions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: password.trim() })
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || 'Server error');
+        }
+        showToast('Submission log cleared');
+      } catch (error) {
+        console.error(error);
+        showToast('Cleared locally');
+      }
+    }
+
     function clearInput() {
       suggestInput.value = '';
       suggestInput.focus();
     }
+
+    function openDriveUpload() {
+      const service = document.getElementById('drive-service').value;
+      const urls = {
+        onedrive: 'https://onedrive.live.com/',
+        googledrive: 'https://drive.google.com/drive/my-drive'
+      };
+      window.open(urls[service], '_blank');
+      showToast('Opening upload page...');
+    }
+
+    async function shareVideo() {
+      const file = shareFileInput.files[0];
+      const service = document.getElementById('drive-service').value;
+      if (!file) {
+        showToast('Select a clip first');
+        return;
+      }
+      const video = file.name;
+      try {
+        const response = await fetch('/share-request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ video, service })
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || 'Server error');
+        }
+        showToast('Share request logged');
+      } catch (error) {
+        console.error(error);
+        showToast('Could not log share request');
+      }
+    }
+
     function showToast(message) {
       toast.textContent = message;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 3000);
     }
+
+    shareFileInput.addEventListener('change', () => {
+      const file = shareFileInput.files[0];
+      shareFileName.textContent = file ? file.name : 'No file selected';
+    });
+
     suggestInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) submitSuggestion();
     });
+
+    window.addEventListener('load', loadSavedSuggestions);
   </script>
 
 </body>
